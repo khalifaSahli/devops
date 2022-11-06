@@ -71,7 +71,12 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
-
+<distributionManagement>
+   <snapshotRepository>
+      <id>deploymentRepo</id>
+      <url>http://http://192.168.100.120:8081/repository/maven-snapshots/</url>
+   </snapshotRepository>
+</distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
