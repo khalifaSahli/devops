@@ -83,8 +83,8 @@
 	<distributionManagement>
   
 	  <repository>
-      <id>deploymentRepo</id>
-		  <name>Nexus Repository</name>
+      <id>jenkins-user</id>
+		  <name>maven-nexus-repo</name>
    <url>http://192.168.100.120:8081/repository/maven-snapshots/</url>
   </repository>
 </distributionManagement>
