@@ -84,7 +84,7 @@
   
 	  <repository>
       <id>deploymentRepo</id>
-		  <name>tpAchatProject</name>
+		  <name>Nexus Repository</name>
    <url>http://192.168.100.120:8081/repository/maven-snapshots/</url>
   </repository>
 </distributionManagement>
