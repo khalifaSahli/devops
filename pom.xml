@@ -80,5 +80,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+  
+	  <repository>
+      <id>jenkins-user</id>
+		  <name>maven-nexus-repo</name>
+   <url>http://192.168.100.120:8081/repository/maven-nexus-repo/</url>
+  </repository>
+</distributionManagement>
 
 </project>
