@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.1'
 
 services:
 
@@ -18,7 +18,7 @@ services:
     depends_on:
       - mysqldb
     ports:
-      - "8791:8791"
+      - "8089:8089"
     logging:
       driver: "json-file"
       options:
