@@ -18,6 +18,8 @@ services:
     container_name: springboot-app
     restart: on-failure
     env_file: ./.env
+      build:
+      dockerfile: Dockerfile
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
