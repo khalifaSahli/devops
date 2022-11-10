@@ -51,7 +51,7 @@ pipeline {
     stage('mvn install') { 
 
            steps {
-      	sh 'mvn clean install -DskipTests=true '
+      	sh 'mvn  install -DskipTests=true '
                 }
              
 
@@ -72,15 +72,6 @@ pipeline {
 
         }
         
-      
-    stage(' docker-compose') {
-            steps {
-                
-                              sh 'docker-compose -f docker-compose.yml up -d'
-
-   
-            }
-        }
         
        
       
@@ -95,6 +86,17 @@ pipeline {
             }
         }
    
+   
+   
+   
+     stage(' docker-compose') {
+            steps {
+                
+                              sh 'docker-compose -f docker-compose.yml up -d'
+
+   
+            }
+        }
    /*
    stage('mvn deploy'){
             steps {
