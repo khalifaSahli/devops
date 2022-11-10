@@ -1,5 +1,4 @@
 pipeline { 
-
     environment { 
 
         registry = "sahlikhalifa/devops" 
@@ -16,14 +15,14 @@ pipeline {
     }
 
     agent any 
-     tools { 
+    tools { 
         maven "M1_HOME"
         
     }
 
     stages { 
 
-        stage('checkout git') { 
+    stage('checkout git') { 
 
             steps {
             git branch: 'main', url: 'https://github.com/khalifaSahli/devops.git'
@@ -33,23 +32,23 @@ pipeline {
 
         } 
         
-        stage('MVN clean'){
+    stage('MVN clean'){
             steps{
                 sh 'mvn clean:clean'
             }
         }
-    	stage('MVN COMPILE'){
+    stage('MVN COMPILE'){
             steps{
                 sh 'mvn compiler:compile'
             }
         }	
-        	stage('Test unitaire') {
+    stage('Test unitaire') {
             steps {
                 sh 'mvn test'  	        
             } 
            
         
-         stage('mvn install') { 
+    stage('mvn install') { 
 
            steps {
       	sh 'mvn clean install -DskipTests=true '
@@ -62,7 +61,7 @@ pipeline {
         
         
         
-            stage('Building our image') { 
+    stage('Building our image') { 
 
            steps {                script { 
           
@@ -74,7 +73,7 @@ pipeline {
         }
         
       
-          stage(' docker-compose') {
+    stage(' docker-compose') {
             steps {
                 
                               sh 'docker-compose -f docker-compose.yml up -d'
@@ -85,7 +84,7 @@ pipeline {
         
        
       
-         stage('Deploy our image on DockerHub') { 
+    stage('Deploy our image on DockerHub') { 
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
@@ -107,7 +106,7 @@ pipeline {
         
         
        
-          stage('push our image on nexus') { 
+    stage('push our image on nexus') { 
 
      steps {
                         script {
@@ -147,7 +146,7 @@ pipeline {
        } } 
         
         
-       stage('Cleaning up') { 
+    stage('Cleaning up') { 
             steps { 
                 echo'fffff'
                /* sh "docker rmi $registry:$BUILD_NUMBER" */
@@ -159,7 +158,7 @@ pipeline {
      
 
     }
-      post {
+    post {
        always {
           junit(
         allowEmptyResults: true,
@@ -170,4 +169,6 @@ pipeline {
     
 }
 }
+
+
 
