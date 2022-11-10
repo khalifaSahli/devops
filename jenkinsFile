@@ -46,7 +46,16 @@ pipeline {
             steps {
                 sh 'mvn test'  	        
             } 
-      }     
+      }
+      stage('SonarQube analysis'){
+                       steps{
+                       withSonarQubeEnv(installationName:'sonar')
+                         {
+			   
+                           sh 'mvn sonar:sonar'
+                           }
+                           }
+                 }	
         
     stage('mvn install') { 
 
