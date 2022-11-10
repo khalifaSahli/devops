@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sh 'mvn test'  	        
             } 
-           
+      }     
         
     stage('mvn install') { 
 
