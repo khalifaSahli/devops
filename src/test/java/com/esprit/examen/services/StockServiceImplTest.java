@@ -25,7 +25,7 @@ public class StockServiceImplTest {
 	@Autowired
 	IStockService stockService;
 
-	Stock s = new Stock("stock test",110,8,new HashSet<Produit>());
+	Stock s = new Stock("StockService test",110,8,new HashSet<Produit>());
 	@Order(0)
 	@Test
 	public void testListStock() {
