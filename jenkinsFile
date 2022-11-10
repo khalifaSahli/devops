@@ -79,8 +79,8 @@ pipeline {
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
-                   /* dockerImage.push() */
-                   sh'docker push sahlikhalifa/devops' 
+                    dockerImage.push() 
+                   /*sh'docker push sahlikhalifa/devops'*/
                     }
                 } 
             }
@@ -150,8 +150,8 @@ pipeline {
         
     stage('Cleaning up') { 
             steps { 
-                echo'fffff'
-               /* sh "docker rmi $registry:$BUILD_NUMBER" */
+               
+                sh "docker rmi $registry:$BUILD_NUMBER" 
             }
         } 
 
