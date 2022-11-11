@@ -82,7 +82,7 @@ pipeline {
         
         
        
-      
+ /*     
     stage('Deploy our image on DockerHub') { 
             steps { 
                 script { 
@@ -94,7 +94,7 @@ pipeline {
             }
         }
    
-   
+   */
    
    
      stage(' docker-compose') {
