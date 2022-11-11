@@ -56,7 +56,7 @@ pipeline {
                            }
                            }
                  }	
-        
+        /*
     stage('mvn install') { 
 
            steps {
@@ -89,7 +89,7 @@ pipeline {
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                     dockerImage.push() 
-                   /*sh'docker push sahlikhalifa/devops'*/
+               
                     }
                 } 
             }
@@ -106,17 +106,10 @@ pipeline {
    
             }
         }
-   /*
-   stage('mvn deploy'){
-            steps {
-                sh 'mvn deploy  -DskipTests=true'
-            }
-   }
-       
-     */
+ */
         
         
-       
+  /*     
     stage('push our image on nexus') { 
 
      steps {
@@ -156,7 +149,7 @@ pipeline {
 
        } } 
         
-        
+       */ 
     stage('Cleaning up') { 
             steps { 
                
