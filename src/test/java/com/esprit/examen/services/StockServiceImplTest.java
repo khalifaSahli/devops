@@ -58,6 +58,7 @@ public class StockServiceImplTest {
 		s.setQte(5);
 		s.setQteMin(50);
 		Stock updateeStock= stockService.updateStock(s);
+		assertNotNull(updateeStock);
 		log.info(" stock  :" + updateeStock.toString());
 	}
     @Order(3)
