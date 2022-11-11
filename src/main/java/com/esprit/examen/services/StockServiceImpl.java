@@ -34,7 +34,8 @@ public class StockServiceImpl implements IStockService {
 	public Stock addStock(Stock s) {
 		// récuperer la date à l'instant t1
 		log.info("In method addStock");
-		return stockRepository.save(s);
+	        stockRepository.save(s);
+		return s ;
 		
 	}
 
@@ -48,7 +49,8 @@ public class StockServiceImpl implements IStockService {
 	@Override
 	public Stock updateStock(Stock s) {
 		log.info("In method updateStock");
-		return stockRepository.save(s);
+		 stockRepository.save(s);
+		return s ;
 	}
 
 	@Override
