@@ -27,7 +27,7 @@ import java.util.*;
 @SpringBootTest
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class StockServiceTestMock {
+public class StockServiceMockTest {
     @Mock
     StockRepository StockRepo;
 
