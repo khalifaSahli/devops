@@ -1,87 +1,85 @@
 package com.esprit.examen.services;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.esprit.examen.entities.Stock;
-import com.esprit.examen.repositories.StockRepository;
+
+import com.esprit.examen.entities.Produit;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.esprit.examen.entities.Stock;
 
-@Service
+@RunWith(SpringRunner.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringBootTest
 @Slf4j
-public class StockServiceImpl implements IStockService {
-
+public class StockServiceImplTest {
 	@Autowired
-	StockRepository stockRepository;
+	IStockService stockService;
 
+	Stock s = new Stock("StockService test",110,100,new HashSet<Produit>());
+	Stock st = new Stock("Stock test Status",110,133,new HashSet<Produit>());
+	@Order(0)
+	@Test
+	public void testListStock() {
+		s.getProduits().add(new Produit());
+		Stock savedStock= stockService.addStock(s);
+		List<Stock> stocks = stockService.retrieveAllStocks();
+		assertNotNull(stocks);
 
-	@Override
-	public List<Stock> retrieveAllStocks() {
-		// récuperer la date à l'instant t1
-		log.info("In method retrieveAllStocks");
-		List<Stock> stocks =  stockRepository.findAll();
-		for (Stock stock : stocks) {
-			log.info(" Stock : " + stock);
-		}
-		log.info("out of method retrieveAllStocks");
-		// récuperer la date à l'instant t2
-		// temps execution = t2 - t1
-		return stocks;
-	}
-
-	@Override
-	public Stock addStock(Stock s) {
-		// récuperer la date à l'instant t1
-		log.info("In method addStock");
-		return stockRepository.save(s);
-		
-	}
-
-	@Override
-	public void deleteStock(Long stockId) {
-		log.info("In method deleteStock");
-		stockRepository.deleteById(stockId);
 
 	}
-
-	@Override
-	public Stock updateStock(Stock s) {
-		log.info("In method updateStock");
-		return stockRepository.save(s);
+    @Order(1)
+	@Test
+	public void testAddStock() {
+		List<Stock> stocks = stockService.retrieveAllStocks();
+		int expected=stocks.size();
+		s.getProduits().add(new Produit());
+		Stock savedStock= stockService.addStock(s);
+		assertEquals(expected+1, stockService.retrieveAllStocks().size());
+		assertNotNull(savedStock.getLibelleStock());
+		assertSame(110, savedStock.getQte());
+		assertTrue(savedStock.getQteMin()>0);
+        log.info(" stock  :" + savedStock.toString());
+		stockService.deleteStock(savedStock.getIdStock());
 	}
-
-	@Override
-	public Stock retrieveStock(Long stockId) {
-		long start = System.currentTimeMillis();
-		log.info("In method retrieveStock");
-		Stock stock = stockRepository.findById(stockId).orElse(null);
-		log.info("stock:"+stock);
-		log.info("out of method retrieveStock");
-		 long elapsedTime = System.currentTimeMillis() - start;
-		log.info("Method execution time: " + elapsedTime + " milliseconds.");
-
-		return stock;
+	@Order(2)
+	@Test
+	public void testUpdateStock() {
+		Stock s = new Stock(Long.valueOf(1));
+		s.setLibelleStock("stock update");
+		s.setQte(5);
+		s.setQteMin(50);
+		Stock updateeStock= stockService.updateStock(s);
+		assertNotNull(updateeStock.getLibelleStock());
+		log.info(" stock  :" + updateeStock.toString());
 	}
-
-	@Override
-	public String retrieveStatusStock() {
-
-		String sentence = "le stock:                                                                                                               " +
-				"                                ";
-		StringBuilder builder = new StringBuilder(sentence);
-		List<Stock> stocksEnRouge = (List<Stock>) stockRepository.retrieveStatusStock();
-		for (int i = 0; i < stocksEnRouge.size(); i++) {
-			builder.insert(10, stocksEnRouge.get(i).getLibelleStock());
-			builder.insert(10+stocksEnRouge.get(i).getLibelleStock().length(), " a une quantité de " + stocksEnRouge.get(i).getQte());
-			builder.insert(49, " inférieur à la quantité minimale a ne pas dépasser de " + stocksEnRouge.get(i).getQte());
-
-		}
-		String str = builder.toString();
-
-		log.info(str);
-		return str;
+    @Order(3)
+	@Test
+	public void testDeleteStock() {
+		Stock savedStock= stockService.addStock(s);
+		stockService.deleteStock(savedStock.getIdStock());
+		assertNull(stockService.retrieveStock(savedStock.getIdStock()));
+	}
+	@Order(4)
+	@Test
+	public void testRetreveStock() {
+		Stock savedStock= stockService.addStock(s);
+		assertNotNull(stockService.retrieveStock(savedStock.getIdStock()));
+	}
+	@Order(5)
+	@Test
+	public void testStatusStock() {
+		stockService.addStock(st);
+	 stockService.retrieveStatusStock();
 	}
 
 }
