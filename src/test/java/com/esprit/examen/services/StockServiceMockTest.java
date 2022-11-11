@@ -27,7 +27,7 @@ import java.util.*;
 @SpringBootTest
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class StockServiceMockTest {
+ class StockServiceMockTest {
     @Mock
     StockRepository StockRepo;
 
@@ -57,7 +57,7 @@ public class StockServiceMockTest {
 
     @Test
     @Order(2)
-    public void RetreveStock() {
+     void RetreveStock() {
         Mockito.when(StockRepo.findById(Mockito.anyLong())).thenReturn(Optional.of(s));
         Stock s = StockSer.retrieveStock(1l);
         assertNotNull(s);
@@ -67,7 +67,7 @@ public class StockServiceMockTest {
 
     @Test
     @Order(1)
-    public void addStock() {
+     void addStock() {
         when(StockRepo.save(s)).thenReturn(s);
         Assert.assertEquals(s,StockSer.addStock(s));
     }
@@ -77,7 +77,7 @@ public class StockServiceMockTest {
 
     @Test
     @Order(3)
-    public void getAllStock () {
+     void getAllStock () {
         when(StockRepo.findAll()).thenReturn(listStock);
 
         assertEquals(2,StockSer.retrieveAllStocks().size());
