@@ -51,7 +51,6 @@ pipeline {
                        steps{
                        withSonarQubeEnv(installationName:'sonar')
                          {
-			   sh 'mvn verify -DskipTests=true'
                            sh 'mvn sonar:sonar'
                            }
                            }
